@@ -2,6 +2,11 @@
 - hosts: all
   vars:
     systemd_service_activate: False
+  roles:
+  - role: '{{ playbook_dir }}'
+- hosts: all
+  vars:
+    systemd_service_activate: False
     systemd_service_def:
       name: node_exporter
       description: Prometheus node_exporter
