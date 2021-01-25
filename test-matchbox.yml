@@ -1,0 +1,29 @@
+---
+- hosts: all
+  vars:
+    systemd_service_activate: False
+    systemd_service_def:
+      name: matchbox
+      user: matchbox
+      group: matchbox
+      description: matchbox service
+      exe: /usr/local/matchbox/matchbox
+      env:
+        dir: /etc/matchbox
+        filename: env
+        data:
+          MATCHBOX_ADDRESS: localhost:1234
+      protect_home: yes
+      protect_system: full
+      restart:
+        policy: always
+        sec: 5
+      timeout:
+        start_sec: 10
+        stop_sec: 10
+      after:
+        - network-online.target
+      wanted_by:
+        - multi-user.target
+  roles:
+  - role: '{{ playbook_dir }}'

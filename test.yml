@@ -12,6 +12,8 @@
       description: systemd service description
       exe: /fully/qualified/path/to/executable
       args: '$FIRST_ARG --second-arg=$SECOND_ARG --third-arg=$THIRD_ARG'
+      user: test-systemd-service-user
+      group: test-systemd-service-group
       env:
         dir: /etc/configuration/dir
         filename: env
@@ -33,30 +35,5 @@
         - multi-user.target
   roles:
   - role: '{{ playbook_dir }}'
-- hosts: all
-  vars:
-    systemd_service_activate: False
-    systemd_service_def:
-      name: node_exporter
-      description: Prometheus node_exporter
-      exe: /usr/local/bin/node_exporter
-      args: '$NODE_EXPORTER_ARGS'
-      env:
-        dir: /etc/node_exporter
-        filename: env
-        data:
-          NODE_EXPORTER_ARGS: ''
-      start_limit:
-        interval: 5
-        burst: 10
-      restart:
-        policy: always
-        sec: 120
-      after:
-        - syslog.target
-        - network.target
-      wanted_by:
-        - multi-user.target
-  roles:
-  - role: '{{ playbook_dir }}'
-    
+- import_playbook: test-node_exporter.yml    
+- import_playbook: test-matchbox.yml

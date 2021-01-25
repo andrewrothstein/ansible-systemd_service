@@ -1,6 +1,9 @@
 #jinja2: trim_blocks:False
 [Unit]
 Description={{ systemd_service_def.description }}
+{% if systemd_service_def.requires is defined %}
+Requires={{ systemd_service_def.requires | join(" ") }}
+{% endif %}
 {% if systemd_service_def.after is defined %}
 After={{ systemd_service_def.after | join(" ") }}
 {% endif %}
@@ -18,7 +21,21 @@ StartLimitInterval={{ systemd_service_def.start_limit.burst }}
 
 {% if systemd_service_def.env is defined %}EnvironmentFile={{ systemd_service_fq_env_file }}{% endif %}
 
-ExecStart={{ systemd_service_def.exe }} {{ systemd_service_def.args }}
+{% if systemd_service_def.user is defined %}User={{ systemd_service_def.user }}{% endif %}
+{% if systemd_service_def.group is defined %}Group={{ systemd_service_def.group }}{% endif %}
+
+{% if systemd_service_def.protect_home is defined and systemd_service_def.protect_home | bool %}ProtectHome=yes{% endif %}
+{% if systemd_service_def.protect_system is defined %}ProtectSystem={{ systemd_service_def.protect_system }}{% endif %}
+{% if systemd_service_def.timeout is defined %}
+  {% if systemd_service_def.time.start_sec is defined %}
+TimeoutStartSec={{ systemd_service_def.time.start_sec }}
+  {% endif %}
+  {% if systemd_service_def.time.stop_sec is defined %}
+TimeoutStopSec={{ systemd_service_def.time.stop_sec }}
+  {% endif %}
+{% endif %}
+
+ExecStart={{ systemd_service_def.exe }}{% if systemd_service_def.args is defined %} {{ systemd_service_def.args }}{% endif %}
 
 {% if systemd_service_def.restart is defined %}
   {% if systemd_service_def.restart.policy is defined %}
