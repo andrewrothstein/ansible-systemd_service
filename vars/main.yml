@@ -1,0 +1,4 @@
+---
+# vars file for systemd_service
+systemd_service_fq_env_file: '{{ systemd_service_def.env.dir }}/{{ systemd_service_def.env.filename }}'
+systemd_service_fq_service_unit: '{{ systemd_service_def.units | default("/etc/systemd/system") }}/{{ systemd_service_def.name }}.service'

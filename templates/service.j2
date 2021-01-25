@@ -1,0 +1,37 @@
+#jinja2: trim_blocks:False
+[Unit]
+Description={{ systemd_service_def.description }}
+{% if systemd_service_def.after is defined %}
+After={{ systemd_service_def.after | join(" ") }}
+{% endif %}
+ConditionFileIsExecutable={{ systemd_service_def.exe }}
+
+[Service]
+{% if systemd_service_def.start_limit is defined %}
+  {% if systemd_service_def.start_limit.interval is defined %}
+StartLimitInterval={{ systemd_service_def.start_limit.interval }}
+  {% endif %}
+  {% if systemd_service_def.start_limit.burst is defined %}
+StartLimitInterval={{ systemd_service_def.start_limit.burst }}
+  {% endif %}
+{% endif %}
+
+{% if systemd_service_def.env is defined %}EnvironmentFile={{ systemd_service_fq_env_file }}{% endif %}
+
+ExecStart={{ systemd_service_def.exe }} {{ systemd_service_def.args }}
+
+{% if systemd_service_def.restart is defined %}
+  {% if systemd_service_def.restart.policy is defined %}
+Restart={{ systemd_service_def.restart.policy }}
+  {% endif %}
+  {% if systemd_service_def.restart.sec is defined %}
+RestartSec={{ systemd_service_def.restart.sec }}
+  {% endif %}
+{% endif %}
+
+{% if systemd_service_def.wanted_by is defined %}
+[Install]
+  {% for wb in systemd_service_def.wanted_by %}
+WantedBy={{ wb }}
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,30 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+
+- name: setup service account group and user
+  when: systemd_service_def is defined
+  include_tasks: setup-user.yml
+  tags:
+    - setup-users
+- name: install service definition...
+  when: systemd_service_def is defined
+  include_tasks: systemd.yml
+  tags:
+    - install-service
+- name: start/enable service
+  when: systemd_service_def is defined and systemd_service_activate
+  become: yes
+  become_user: root
+  service:
+    name: '{{ systemd_service_def.name }}'
+    state: started
+    enabled: yes

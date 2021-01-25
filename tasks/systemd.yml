@@ -1,0 +1,14 @@
+---
+- name: construct systemd env file
+  when: systemd_service_def.env is defined
+  include_tasks: systemd-env.yml
+- name: templating {{ systemd_service_fq_service_unit }}
+  become: yes
+  become_user: root
+  template:
+    src: service.j2
+    dest: '{{ systemd_service_fq_service_unit }}'
+    mode: 0600
+    owner: '{{ systemd_service_def.user | default("root") }}'
+    group: '{{ systemd_service_def.group | default("root") }}'
+  notify: systemd_service_daemon_reload
