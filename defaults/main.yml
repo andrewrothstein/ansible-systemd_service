@@ -2,27 +2,27 @@
 # defaults file for systemd_service
 service_activate: True
 
-systemd_service_def:
-  name: systemd service name
-  description: systemd service description
-  exe: /fully/qualified/path/to/executable
-  args: '$FIRST_ARG --second-arg=$SECOND_ARG --third-arg=$THIRD_ARG'
-  env:
-    dir: /etc/configuration/dir
-    filename: env
-    # yielding /etc/configuration/dir/env
-    data:
-      FIRST_ARG: foo
-      SECOND_ARG: bar
-      THIRD_ARG: too
-  start_limit:
-    interval: 5
-    burst: 10
-  restart:
-    policy: always
-    sec: 120
-  after:
-    - syslog.target
-    - network.target
-  wanted_by:
-    - multi-user.target
+#systemd_service_def:
+#  name: systemd service name
+#  description: systemd service description
+#  exe: /fully/qualified/path/to/executable
+#  args: '$FIRST_ARG --second-arg=$SECOND_ARG --third-arg=$THIRD_ARG'
+#  env:
+#    dir: /etc/configuration/dir
+#    filename: env
+#    # yielding /etc/configuration/dir/env
+#    data:
+#      FIRST_ARG: foo
+#      SECOND_ARG: bar
+#      THIRD_ARG: too
+#  start_limit:
+#    interval: 5
+#    burst: 10
+#  restart:
+#    policy: always
+#    sec: 120
+#  after:
+#    - syslog.target
+#    - network.target
+#  wanted_by:
+#    - multi-user.target
