@@ -13,6 +13,7 @@
         filename: env
         data:
           MATCHBOX_ADDRESS: localhost:1234
+          MATCHBOX_LEFT_OUT: ''
       protect_home: yes
       protect_system: full
       restart:
