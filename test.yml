@@ -34,6 +34,11 @@
       wanted_by:
         - multi-user.target
   roles:
+  - role: andrewrothstein.service_account
+    service_account:
+      user:
+        name: '{{ systemd_service_def.user }}'
+        group: '{{ systemd_service_def.group }}'
   - role: '{{ playbook_dir }}'
 - import_playbook: test-node_exporter.yml    
 - import_playbook: test-matchbox.yml

@@ -1,0 +1,3 @@
+---
+- role: andrewrothstein.service_account
+  version: v0.0.1

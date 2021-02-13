@@ -10,11 +10,6 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: setup service account group and user
-  when: systemd_service_def is defined
-  include_tasks: setup-user.yml
-  tags:
-    - setup-users
 - name: install service definition...
   when: systemd_service_def is defined
   include_tasks: systemd.yml
