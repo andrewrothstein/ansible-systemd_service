@@ -5,8 +5,9 @@
     systemd_service_def:
       name: node_exporter
       description: Prometheus node_exporter
-      exe: /usr/local/bin/node_exporter
-      args: '$NODE_EXPORTER_ARGS'
+      start:
+        exe: /usr/local/bin/node_exporter
+        args: '$NODE_EXPORTER_ARGS'
       env:
         dir: /etc/node_exporter
         filename: env

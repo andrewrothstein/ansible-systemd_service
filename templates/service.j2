@@ -7,7 +7,12 @@ Requires={{ systemd_service_def.requires | join(" ") }}
 {% if systemd_service_def.after is defined %}
 After={{ systemd_service_def.after | join(" ") }}
 {% endif %}
-ConditionFileIsExecutable={{ systemd_service_def.exe }}
+{% if systemd_service_def.start is defined %}
+ConditionFileIsExecutable={{ systemd_service_def.start.exe }}
+{% endif %}
+{% if systemd_service_def.stop is defined %}
+ConditionFileIsExecutable={{ systemd_service_def.stop.exe }}
+{% endif %}
 
 [Service]
 {% if systemd_service_def.start_limit is defined %}
@@ -35,7 +40,13 @@ TimeoutStopSec={{ systemd_service_def.time.stop_sec }}
   {% endif %}
 {% endif %}
 
-ExecStart={{ systemd_service_def.exe }}{% if systemd_service_def.args is defined %} {{ systemd_service_def.args }}{% endif %}
+{% if systemd_service_def.start is defined %}
+ExecStart={{ systemd_service_def.start.exe }}{% if systemd_service_def.start.args is defined %} {{ systemd_service_def.start.args }}{% endif %}
+{% endif %}
+
+{% if systemd_service_def.stop is defined %}
+ExecStop={{ systemd_service_def.stop.exe }}{% if systemd_service_def.stop.args is defined %} {{ systemd_service_def.stop.args }}{% endif %}
+{% endif %}
 
 {% if systemd_service_def.restart is defined %}
   {% if systemd_service_def.restart.policy is defined %}

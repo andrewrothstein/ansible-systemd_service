@@ -7,7 +7,8 @@
       user: matchbox
       group: matchbox
       description: matchbox service
-      exe: /usr/local/matchbox/matchbox
+      start:
+        exe: /usr/local/matchbox/matchbox
       env:
         dir: /etc/matchbox
         filename: env
