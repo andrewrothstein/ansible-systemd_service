@@ -10,6 +10,7 @@
     systemd_service_def:
       name: systemd-service-name
       description: systemd service description
+      pidfile: /var/run/systemd-service-name.pid
       start:
         exe: /fully/qualified/path/to/executable
         args: '$FIRST_ARG --second-arg=$SECOND_ARG --third-arg=$THIRD_ARG'
