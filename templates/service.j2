@@ -50,6 +50,10 @@ TimeoutStopSec={{ systemd_service_def.time.stop_sec }}
 ExecStart={{ systemd_service_def.start.exe }}{% if systemd_service_def.start.args is defined %} {{ systemd_service_def.start.args }}{% endif %}
 {% endif %}
 
+{% if systemd_service_def.pidfile is defined %}
+PIDFile={{ systemd_service_def.pidfile }}
+{% endif %}
+
 {% if systemd_service_def.stop is defined %}
 ExecStop={{ systemd_service_def.stop.exe }}{% if systemd_service_def.stop.args is defined %} {{ systemd_service_def.stop.args }}{% endif %}
 {% endif %}

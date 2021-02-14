@@ -11,6 +11,7 @@ service_activate: True
 #  stop:
 #    exe: /fully/qualified/path/to/executable
 #    args: stop-in-the-name-of-safety-bang-bang
+#  pidfile: /var/run/app/foo.pid
 #  env:
 #    addl_files:
 #      - '-/usr/local/openjdk-jre/openjdk.env'
