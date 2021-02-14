@@ -12,9 +12,11 @@ service_activate: True
 #    exe: /fully/qualified/path/to/executable
 #    args: stop-in-the-name-of-safety-bang-bang
 #  env:
+#    addl_files:
+#      - '-/usr/local/openjdk-jre/openjdk.env'
 #    dir: /etc/configuration/dir
-#    filename: env
 #    # yielding /etc/configuration/dir/env
+#    filename: env
 #    data:
 #      FIRST_ARG: foo
 #      SECOND_ARG: bar

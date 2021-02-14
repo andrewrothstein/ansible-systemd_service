@@ -8,7 +8,7 @@
   vars:
     systemd_service_activate: False
     systemd_service_def:
-      name: systemd service name
+      name: systemd-service-name
       description: systemd service description
       start:
         exe: /fully/qualified/path/to/executable
@@ -16,6 +16,8 @@
       user: test-systemd-service-user
       group: test-systemd-service-group
       env:
+        addl_files:
+          - '-/usr/local/openjdk-jre/openjdk.env'
         dir: /etc/configuration/dir
         filename: env
         # yielding /etc/configuration/dir/env

@@ -24,8 +24,14 @@ StartLimitInterval={{ systemd_service_def.start_limit.burst }}
   {% endif %}
 {% endif %}
 
-{% if systemd_service_def.env is defined %}EnvironmentFile={{ systemd_service_fq_env_file }}{% endif %}
-
+{% if systemd_service_def.env is defined %}
+  {% if systemd_service_def.env.addl_files is defined %}
+    {% for ef in systemd_service_def.env.addl_files %}
+EnvironmentFile={{ ef }}
+    {% endfor %}
+  {% endif %}
+EnvironmentFile={{ systemd_service_fq_env_file }}
+{% endif %}
 {% if systemd_service_def.user is defined %}User={{ systemd_service_def.user }}{% endif %}
 {% if systemd_service_def.group is defined %}Group={{ systemd_service_def.group }}{% endif %}
 
