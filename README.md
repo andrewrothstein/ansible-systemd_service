@@ -1,6 +1,6 @@
 andrewrothstein.systemd_service
 =========
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-systemd_service.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-systemd_service)
+![Build Status](https://github.com/andrewrothstein/ansible-systemd_service/actions/workflows/build.yml/badge.svg)
 
 Installs and configures a systemd_service.
 
