@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    systemd_service_activate: False
+    systemd_service_activate: false
     systemd_service_def:
       name: matchbox
       user: matchbox
@@ -15,7 +15,7 @@
         data:
           MATCHBOX_ADDRESS: localhost:1234
           MATCHBOX_LEFT_OUT: ''
-      protect_home: yes
+      protect_home: 'yes'
       protect_system: full
       restart:
         policy: always

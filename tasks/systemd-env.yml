@@ -1,6 +1,6 @@
 ---
 - name: mkdir {{ systemd_service_def.env.dir }}
-  become: yes
+  become: true
   become_user: root
   file:
     path: '{{ systemd_service_def.env.dir }}'
@@ -9,7 +9,7 @@
     owner: '{{ systemd_service_def.user | default("root") }}'
     group: '{{ systemd_service_def.group | default("root") }}'
 - name: templatizing environment
-  become: yes
+  become: true
   become_user: root
   template:
     src: env.j2

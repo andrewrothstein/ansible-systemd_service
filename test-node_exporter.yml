@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    systemd_service_activate: False
+    systemd_service_activate: false
     systemd_service_def:
       name: node_exporter
       description: Prometheus node_exporter

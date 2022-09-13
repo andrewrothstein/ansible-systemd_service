@@ -1,13 +1,13 @@
 ---
 # handlers file for systemd_service
 - name: systemd_service_daemon_reload
-  become: yes
+  become: true
   become_user: root
   when: systemd_service_activate
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
 - name: systemd_service_restart
-  become: yes
+  become: true
   become_user: root
   when: systemd_service_activate
   service:

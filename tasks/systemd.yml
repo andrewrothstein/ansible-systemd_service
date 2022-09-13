@@ -3,7 +3,7 @@
   when: systemd_service_def.env is defined
   include_tasks: systemd-env.yml
 - name: templating {{ systemd_service_fq_service_unit }}
-  become: yes
+  become: true
   become_user: root
   template:
     src: service.j2

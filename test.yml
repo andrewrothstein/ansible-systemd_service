@@ -1,12 +1,12 @@
 ---
 - hosts: all
   vars:
-    systemd_service_activate: False
+    systemd_service_activate: false
   roles:
   - role: '{{ playbook_dir }}'
 - hosts: all
   vars:
-    systemd_service_activate: False
+    systemd_service_activate: false
     systemd_service_def:
       name: systemd-service-name
       description: systemd service description
@@ -44,5 +44,5 @@
         name: '{{ systemd_service_def.user }}'
         group: '{{ systemd_service_def.group }}'
   - role: '{{ playbook_dir }}'
-- import_playbook: test-node_exporter.yml    
+- import_playbook: test-node_exporter.yml
 - import_playbook: test-matchbox.yml
