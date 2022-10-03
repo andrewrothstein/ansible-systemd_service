@@ -4,6 +4,9 @@ Description={{ systemd_service_def.description }}
 {% if systemd_service_def.requires is defined %}
 Requires={{ systemd_service_def.requires | join(" ") }}
 {% endif %}
+{% if systemd_service_def.wants is defined %}
+Wants={{ systemd_service_def.wants | join(" ") }}
+{% endif %}
 {% if systemd_service_def.after is defined %}
 After={{ systemd_service_def.after | join(" ") }}
 {% endif %}
