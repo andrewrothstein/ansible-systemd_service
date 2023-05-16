@@ -3,13 +3,13 @@
 - name: systemd_service_daemon_reload
   become: true
   become_user: root
-  when: systemd_service_activate
+  when: systemd_service_def.activate
   systemd:
     daemon_reload: true
 - name: systemd_service_restart
   become: true
   become_user: root
-  when: systemd_service_activate
+  when: systemd_service_def.activate
   service:
     name: '{{ systemd_service_def.name }}'
     state: restarted

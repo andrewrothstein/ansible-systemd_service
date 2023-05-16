@@ -8,7 +8,7 @@
     state: directory
     owner: '{{ systemd_service_def.user | default("root") }}'
     group: '{{ systemd_service_def.group | default("root") }}'
-- name: templatizing environment
+- name: templatizing environment to {{ systemd_service_fq_env_file }}
   become: true
   become_user: root
   template:

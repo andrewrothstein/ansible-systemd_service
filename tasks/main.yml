@@ -10,16 +10,17 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: install service definition...
-  when: systemd_service_def is defined
-  include_tasks: systemd.yml
-  tags:
-    - install-service
-- name: start/enable service
-  when: systemd_service_def is defined and systemd_service_activate
-  become: true
-  become_user: root
-  service:
-    name: '{{ systemd_service_def.name }}'
-    state: started
-    enabled: true
+- when: systemd_service_def is defined
+  block:
+    - name: install service definition...
+      include_tasks: systemd.yml
+      tags:
+        - install-service
+    - name: '{% if systemd_service_def.activate %}activating/starting {{ systemd_service_def.name }}{% else %}leaving {{ systemd_service_def.name }} unactivated/unstarted{% endif %}'
+      when: systemd_service_def.activate
+      become: true
+      become_user: root
+      service:
+        name: '{{ systemd_service_def.name }}'
+        state: started
+        enabled: '{{ systemd_service_def.enabled }}'

@@ -1,13 +1,15 @@
 ---
 # defaults file for systemd_service
-service_activate: true
 
 #systemd_service_def:
 #  name: systemd service name
 #  description: systemd service description
+#  activate: true
+#  enabled: true
 #  start:
 #    exe: /fully/qualified/path/to/executable
 #    args: '$FIRST_ARG --second-arg=$SECOND_ARG --third-arg=$THIRD_ARG'
+#  standard_output: journal+console
 #  stop:
 #    exe: /fully/qualified/path/to/executable
 #    args: stop-in-the-name-of-safety-bang-bang
