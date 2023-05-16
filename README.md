@@ -2,12 +2,12 @@ andrewrothstein.systemd_service
 =========
 ![Build Status](https://github.com/andrewrothstein/ansible-systemd_service/actions/workflows/build.yml/badge.svg)
 
-Installs and configures a systemd_service.
+Installs and configures a systemd service unit. Optionally creates a service account for it.
 
 Requirements
 ------------
 
-See [meta/main.yml](meta/main.yml)
+See [meta/requirements.yml](meta/requirements.yml)
 
 Role Variables
 --------------
@@ -17,7 +17,7 @@ See [defaults/main.yml](defaults/main.yml)
 Dependencies
 ------------
 
-See [meta/main.yml](meta/main.yml)
+See [meta/requirements.yml](meta/requirements.yml)
 
 Example Usages
 ----------------

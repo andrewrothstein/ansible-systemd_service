@@ -4,6 +4,10 @@
 #systemd_service_def:
 #  name: systemd service name
 #  description: systemd service description
+#  account:
+#    create: true
+#    user: example-user
+#    group: example-group
 #  activate: true
 #  enabled: true
 #  start:

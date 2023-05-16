@@ -10,6 +10,19 @@
       paths:
         - '{{ role_path }}/vars'
 
+- when: >
+    systemd_service_def.account is defined
+    and systemd_service_def.account.create
+    and systemd_service_def.account.group is defined
+    and systemd_service_def.account.user is defined
+  include_role:
+    name: andrewrothstein.service_account
+  vars:
+    service_account:
+      user:
+        name: '{{ systemd_service_def.account.user }}'
+        group: '{{ systemd_service_def.account.group }}'
+
 - when: systemd_service_def is defined
   block:
     - name: install service definition...

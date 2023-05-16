@@ -4,8 +4,14 @@
     systemd_service_def:
       name: example
       description: example systemd service used to test Ansible role andrewrothstein.systemd_service
-      activate: false
-      enabled: false
+#      activate: false
+#      enabled: false
+      activate: true
+      enabled: true
+      account:
+        create: true
+        user: example-user
+        group: example-group
       start:
         exe: /bin/bash
         args: -c $BASH_SCRIPT
@@ -29,9 +35,4 @@
       wanted_by:
         - multi-user.target
   roles:
-  - role: andrewrothstein.service_account
-    service_account:
-      user:
-        name: '{{ systemd_service_def.user }}'
-        group: '{{ systemd_service_def.group }}'
   - role: '{{ playbook_dir }}'
