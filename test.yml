@@ -19,7 +19,10 @@
             group: example-group
           start:
             exe: /bin/bash
-            args: -c $BASH_SCRIPT
+            args: '-c $BASH_SCRIPT'
+          start_limit:
+            interval: 5
+            burst: 10
           user: example_systemd_user
           group: example_systemd_group
           env:
@@ -34,6 +37,7 @@
               B: gazi
           restart:
             policy: on-failure
+            sec: 10
           after:
             - syslog.target
             - network.target
