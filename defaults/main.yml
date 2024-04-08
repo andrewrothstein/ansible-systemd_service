@@ -5,7 +5,7 @@
 #   name: systemd service name
 #   description: systemd service description
 #   account:
-#     create: true
+#     enabled: true
 #     user: example-user
 #     group: example-group
 #   activate: true

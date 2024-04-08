@@ -4,12 +4,12 @@
     systemd_service_def:
       name: example
       description: example systemd service used to test Ansible role andrewrothstein.systemd_service
-#      activate: false
-#      enabled: false
-      activate: true
-      enabled: true
+      activate: false
+      enabled: false
+#      activate: true
+#      enabled: true
       account:
-        create: true
+        enabled: true
         user: example-user
         group: example-group
       start:

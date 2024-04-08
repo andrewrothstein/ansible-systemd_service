@@ -13,13 +13,13 @@
 - name: Creating service account
   when:
     - systemd_service_def.account is defined
-    - systemd_service_def.account.create
     - systemd_service_def.account.group is defined
     - systemd_service_def.account.user is defined
   ansible.builtin.include_role:
     name: andrewrothstein.service_account
   vars:
-    service_account:
+    service_account_def:
+      enabled: '{{ systemd_service_def.account.enabled }}'
       user:
         name: '{{ systemd_service_def.account.user }}'
         group: '{{ systemd_service_def.account.group }}'
@@ -29,8 +29,6 @@
   block:
     - name: Install service definition...
       ansible.builtin.include_tasks: systemd.yml
-      tags:
-        - install-service
     - name: Activating/starting {{ systemd_service_def.name }}
       when: systemd_service_def.activate
       become: true

@@ -27,7 +27,7 @@ StartLimitInterval={{ systemd_service_def.start_limit.burst }}
   {% endif %}
 {% endif %}
 
-{% if systemd_service_def.env is defined %}
+{%- if systemd_service_def.env is defined %}
   {% if systemd_service_def.env.addl_files is defined %}
     {% for ef in systemd_service_def.env.addl_files -%}
 EnvironmentFile={{ ef }}
@@ -36,20 +36,20 @@ EnvironmentFile={{ ef }}
 EnvironmentFile={{ systemd_service_fq_env_file }}
 {% endif %}
 
-{% if systemd_service_def.ty is defined %}
+{%- if systemd_service_def.ty is defined %}
 Type={{ systemd_service_def.ty }}
 {% endif %}
 
-{% if systemd_service_def.account is defined %}
+{%- if systemd_service_def.account is defined %}
   {% if systemd_service_def.account.user is defined %}
 User={{ systemd_service_def.account.user }}
   {% endif %}
-  {%- if systemd_service_def.account.group is defined %}
+  {% if systemd_service_def.account.group is defined %}
 Group={{ systemd_service_def.account.group }}
   {% endif %}
-{%endif %}
+{% endif %}
 
-{% if systemd_service_def.working_directory %}
+{%- if systemd_service_def.working_directory is defined %}
 WorkingDirectory={{ systemd_service_def.working_directory }}
 {% endif %}
 
@@ -68,29 +68,29 @@ TimeoutStartSec={{ systemd_service_def.time.start_sec }}
   {% if systemd_service_def.time.stop_sec is defined %}
 TimeoutStopSec={{ systemd_service_def.time.stop_sec }}
   {% endif %}
-{%- endif %}
-
-{% if systemd_service_def.start is defined %}
-ExecStart={{ systemd_service_def.start.exe }}
-  {%- if systemd_service_def.start.args is defined %} {{ systemd_service_def.start.args }}
-  {%- endif %}
 {% endif %}
 
-{% if systemd_service_def.standard_output is defined %}
+{%- if systemd_service_def.start is defined %}
+ExecStart={{ systemd_service_def.start.exe }}
+  {%- if systemd_service_def.start.args is defined %} {{ systemd_service_def.start.args }}
+  {% endif %}
+{% endif %}
+
+{%- if systemd_service_def.standard_output is defined %}
 StandardOutput={{ systemd_service_def.standard_output }}
 {% endif %}
 
-{% if systemd_service_def.pidfile is defined %}
+{%- if systemd_service_def.pidfile is defined %}
 PIDFile={{ systemd_service_def.pidfile }}
 {% endif %}
 
-{% if systemd_service_def.stop is defined %}
+{%- if systemd_service_def.stop is defined %}
 ExecStop={{ systemd_service_def.stop.exe }}
   {%- if systemd_service_def.stop.args is defined %} {{ systemd_service_def.stop.args }}
-  {%- endif %}
+  {% endif %}
 {% endif %}
 
-{% if systemd_service_def.restart is defined %}
+{%- if systemd_service_def.restart is defined %}
   {% if systemd_service_def.restart.policy is defined %}
 Restart={{ systemd_service_def.restart.policy }}
   {% endif %}
@@ -98,10 +98,10 @@ Restart={{ systemd_service_def.restart.policy }}
 RestartSec={{ systemd_service_def.restart.sec }}
   {% endif %}
 {% endif %}
-{%- if systemd_service_def.wanted_by is defined %}
 
+{% if systemd_service_def.wanted_by is defined %}
 [Install]
   {% for wb in systemd_service_def.wanted_by %}
 WantedBy={{ wb }}
   {% endfor %}
-{%- endif %}
+{% endif %}
