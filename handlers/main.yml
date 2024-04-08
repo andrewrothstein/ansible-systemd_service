@@ -1,15 +1,15 @@
 ---
 # handlers file for systemd_service
-- name: systemd_service_daemon_reload
+- name: Systemd_service_daemon_reload
   become: true
   become_user: root
   when: systemd_service_def.activate
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
-- name: systemd_service_restart
+- name: Systemd_service_restart
   become: true
   become_user: root
   when: systemd_service_def.activate
-  service:
+  ansible.builtin.service:
     name: '{{ systemd_service_def.name }}'
     state: restarted

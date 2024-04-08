@@ -36,6 +36,10 @@ EnvironmentFile={{ ef }}
 EnvironmentFile={{ systemd_service_fq_env_file }}
 {% endif %}
 
+{% if systemd_service_def.ty is defined %}
+Type={{ systemd_service_def.ty }}
+{% endif %}
+
 {% if systemd_service_def.account is defined %}
   {% if systemd_service_def.account.user is defined %}
 User={{ systemd_service_def.account.user }}
@@ -44,6 +48,10 @@ User={{ systemd_service_def.account.user }}
 Group={{ systemd_service_def.account.group }}
   {% endif %}
 {%endif %}
+
+{% if systemd_service_def.working_directory %}
+WorkingDirectory={{ systemd_service_def.working_directory }}
+{% endif %}
 
 {%- if systemd_service_def.protect_home is defined and systemd_service_def.protect_home | bool %}
 ProtectHome=yes

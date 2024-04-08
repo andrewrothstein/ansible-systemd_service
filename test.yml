@@ -35,4 +35,4 @@
       wanted_by:
         - multi-user.target
   roles:
-  - role: '{{ playbook_dir }}'
+    - role: '{{ playbook_dir }}'

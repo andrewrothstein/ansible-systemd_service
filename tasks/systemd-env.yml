@@ -1,20 +1,20 @@
 ---
-- name: mkdir {{ systemd_service_def.env.dir }}
+- name: Mkdir {{ systemd_service_def.env.dir }}
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     path: '{{ systemd_service_def.env.dir }}'
-    mode: 0700
+    mode: '700'
     state: directory
     owner: '{{ systemd_service_def.account.user | default("root") }}'
     group: '{{ systemd_service_def.account.group | default("root") }}'
-- name: templatizing environment to {{ systemd_service_fq_env_file }}
+- name: Templatizing environment to {{ systemd_service_fq_env_file }}
   become: true
   become_user: root
-  template:
+  ansible.builtin.template:
     src: env.j2
     dest: '{{ systemd_service_fq_env_file }}'
-    mode: 0600
+    mode: '600'
     owner: '{{ systemd_service_def.account.user | default("root") }}'
     group: '{{ systemd_service_def.account.group | default("root") }}'
-  notify: systemd_service_restart
+  notify: Systemd_service_restart

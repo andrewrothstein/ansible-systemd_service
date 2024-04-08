@@ -1,6 +1,6 @@
 ---
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -10,12 +10,13 @@
       paths:
         - '{{ role_path }}/vars'
 
-- when: >
-    systemd_service_def.account is defined
-    and systemd_service_def.account.create
-    and systemd_service_def.account.group is defined
-    and systemd_service_def.account.user is defined
-  include_role:
+- name: Creating service account
+  when:
+    - systemd_service_def.account is defined
+    - systemd_service_def.account.create
+    - systemd_service_def.account.group is defined
+    - systemd_service_def.account.user is defined
+  ansible.builtin.include_role:
     name: andrewrothstein.service_account
   vars:
     service_account:
@@ -23,17 +24,18 @@
         name: '{{ systemd_service_def.account.user }}'
         group: '{{ systemd_service_def.account.group }}'
 
-- when: systemd_service_def is defined
+- name: Configureing systemd service
+  when: systemd_service_def is defined
   block:
-    - name: install service definition...
-      include_tasks: systemd.yml
+    - name: Install service definition...
+      ansible.builtin.include_tasks: systemd.yml
       tags:
         - install-service
-    - name: '{% if systemd_service_def.activate %}activating/starting {{ systemd_service_def.name }}{% else %}leaving {{ systemd_service_def.name }} unactivated/unstarted{% endif %}'
+    - name: Activating/starting {{ systemd_service_def.name }}
       when: systemd_service_def.activate
       become: true
       become_user: root
-      service:
+      ansible.builtin.service:
         name: '{{ systemd_service_def.name }}'
         state: started
         enabled: '{{ systemd_service_def.enabled }}'
