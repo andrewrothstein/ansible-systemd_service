@@ -23,6 +23,8 @@
       user:
         name: '{{ systemd_service_def.account.user }}'
         group: '{{ systemd_service_def.account.group }}'
+        append: '{{ systemd_service_def.account.append | default(false) }}'
+        groups: '{{ systemd_service_def.account.groups | default([systemd_service_def.account.group]) }}'
 
 - name: Configureing systemd service
   when: systemd_service_def is defined

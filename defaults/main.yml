@@ -8,6 +8,8 @@
 #     enabled: true
 #     user: example-user
 #     group: example-group
+#     append: true
+#     groups: [addl-group-1,addl-group2]
 #   activate: true
 #   enabled: true
 #   start:
